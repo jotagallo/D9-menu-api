@@ -1,0 +1,7 @@
+name: 'Menu API'
+description: 'REST API for menu integration, asynchronous loading menus/submenus and other included features.'
+type: module
+core_version_requirement: '^9'
+version: '1.0'
+package: 'Menu'
+configure: menu_api.settings

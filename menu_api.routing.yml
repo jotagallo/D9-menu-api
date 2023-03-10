@@ -1,0 +1,7 @@
+menu_api.build:
+  path: '/menu-api/{menu}/{item}'
+  defaults:
+    _title: ''
+    _controller: '\Drupal\menu_api\Controller\MenuAPIController::build'
+  requirements:
+    _permission: 'access content'
