@@ -14,8 +14,7 @@ class MenuAPIController extends ControllerBase {
 
     public function build(string $menu = null, int $item = 0) {
         if (!$menu){
-            $response = ['status' => 'error', 'data' => 'No menu provided.'];
-            return new JsonResponse($response);
+            return new JsonResponse(['status' => 'error', 'data' => 'No menu provided.']);
         }
         $menu_tree = \Drupal::menuTree();
 
@@ -28,8 +27,7 @@ class MenuAPIController extends ControllerBase {
             $params->setRoot($id);
             $params->excludeRoot();
         } else {
-            $response = ['status' => 'error', 'data' => 'Menu item not found.'];
-            return new JsonResponse($response);
+            return new JsonResponse(['status' => 'error', 'data' => 'Menu item not found.']);
         }
 
         // Load active trail from given source parameter
@@ -54,8 +52,7 @@ class MenuAPIController extends ControllerBase {
         $build = $menu_tree->build($trans);
         $html = \Drupal::service('renderer')->render($build);
 
-        $response = ['status' => 'ok', 'data' => $html];
-        return new JsonResponse($response);
+        return new JsonResponse(['status' => 'ok', 'data' => $html]);
     }
 
     /**
