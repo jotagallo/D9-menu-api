@@ -41,8 +41,7 @@ class MenuAPIController extends ControllerBase {
 
         $tree = $menu_tree->load($menu, $params);
         if (empty($tree)) {
-            $response = ['status' => 'error', 'data' => 'Menu not found.'];
-            return new JsonResponse($response);
+            return new JsonResponse(['status' => 'error', 'data' => 'Menu not found.']);
         }
         $manipulators = [
             ['callable' => 'menu.default_tree_manipulators:checkAccess'],
