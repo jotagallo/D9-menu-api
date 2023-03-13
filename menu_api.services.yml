@@ -1,0 +1,6 @@
+services:
+  menu_api.active_trail:
+    class: Drupal\menu_api\Services\MenuAPIActiveTrail
+    arguments: ['@plugin.manager.menu.link', '@current_route_match', '@cache.menu', '@lock']
+    tags:
+      - { name: needs_destruction }

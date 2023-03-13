@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Url;
+use Drupal\Core\Routing\RouteMatch;
 
 /**
  * Default controller for the menu_api module.
@@ -32,10 +33,11 @@ class MenuAPIController extends ControllerBase {
 
         // Load active trail from given source parameter
         if ($source = \Drupal::request()->query->get('source')) {
-            if (\Drupal::service('path.validator')->getUrlIfValid($source)) {
-                // @TODO We have to extend the active_trail service from core
-                $active_trail = \Drupal::service('menu.active_trail');
-                // dump($active_trail->getActiveTrailIds($menu));die;
+            if ($url = \Drupal::service('path.validator')->getUrlIfValid($source)) {
+                $route = \Drupal::service('router.route_provider')->getRouteByName($url->getRouteName());
+                $route_match = new RouteMatch($url->getRouteName(), $route, $url->getRouteParameters());
+                $active_trail = \Drupal::service('menu_api.active_trail');
+                $params->setActiveTrail($active_trail->getActiveTrailIds($menu, $route_match));
             }
         }
 
